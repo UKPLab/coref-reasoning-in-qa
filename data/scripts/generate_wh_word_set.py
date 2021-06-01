@@ -13,7 +13,7 @@ WH_WORDS = ["what", "which", "who", "whom", "whose", "where", "why", "how", "whe
 HOW_QUESTIONS = ["how far", "how long", "how many", "how much", "how old"]
 
 nlp = English()
-tokenizer = nlp.Defaults.create_tokenizer(nlp)
+tokenizer = nlp.tokenizer
 
 def get_question_type(question="", question_tokens=[]):
     qs_type = "others"
@@ -31,11 +31,11 @@ def get_question_type(question="", question_tokens=[]):
 
 if __name__ == "__main__":
     datasets = ["quoref"]
-    src_folder = sys.argv[1]
-    out_folder = sys.argv[2]
+    src_file = sys.argv[1]
+    out_file = sys.argv[2]
 
-    f_out = open(os.path.join(out_folder, "train-bart-wh-word.json"), "w")
-    with open(os.path.join(src_folder, "train-bart.json")) as f_in:
+    f_out = open(out_file, "w")
+    with open(src_file) as f_in:
         data = json.load(f_in)
         for paragraphs in data["data"]:
             for context in paragraphs["paragraphs"]:

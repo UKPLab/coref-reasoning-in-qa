@@ -5,25 +5,19 @@ And we remove all the other sentences in the context and keep only this lexical 
 Thus generate a new adversary set.
 """
 import copy
-import gzip
 import json
-import nltk
 import os
-import pandas
-import shutil
 import sys
 import torch
 from sentence_transformers import SentenceTransformer
 from spacy.lang.en import English
-import uuid
 
-import os
 os.environ["OMP_NUM_THREADS"] = "6"
 os.environ["MKL_NUM_THREADS"] = "6"
 
 nlp = English()
-tokenizer = nlp.Defaults.create_tokenizer(nlp)
-nlp.add_pipe(nlp.create_pipe('sentencizer'))
+tokenizer = nlp.tokenizer
+nlp.add_pipe('sentencizer')
 model = SentenceTransformer("bert-base-nli-mean-tokens", device='cuda')
 
 
@@ -35,8 +29,6 @@ def get_context_tokens(context):
 
 
 def get_detected_answers(ans, context):
-    # print(ans)
-    # print(context)
     ans_dict = {"text": ans, "answer_start": -1}
     context_tokens = tokenizer(context)
 
@@ -115,13 +107,13 @@ def generate_new_example(content, qa):
 
 
 if __name__ == '__main__':
-    src_folder = sys.argv[1]
-    out_folder = sys.argv[2]
+    src_file = sys.argv[1]
+    out_file = sys.argv[2]
 
-    f_out = open(os.path.join(out_folder, "train-bart-lexical.json"), "w")
+    f_out = open(out_file, "w")
     count = {"has_anwer": 0, "total_questions": 0}
 
-    with open(os.path.join(src_folder, "train-bart.json")) as f_in:
+    with open(src_file) as f_in:
         data = json.load(f_in)["data"]
         new_data = {"data": []}
         for paragraphs in data:
@@ -129,7 +121,7 @@ if __name__ == '__main__':
             for context in paragraphs["paragraphs"]:
                 i = 0
                 for qa in context["qas"]:
-                    print(qa["question"])
+                    count["total_questions"] += 1
                     i += 1
                     reduced_context = generate_new_example(context, qa)
                     # reduced_context["context_id"] = context["context_id"]+str(i)

@@ -24,6 +24,7 @@ CUDA_VISIBLE_DEVICES=$DEVICE python3 run_quoref.py \
     --train_file ../data/quoref/quoref-train-v0.1.json,../data/conll_data/train-bart.json \
     --learning_rate 3e-5 \
     --do_eval \
+    --predict_file ../data/quoref/quoref-dev-v0.1.json \
     --num_train_epochs 2 \
     --max_seq_length 512 \
     --doc_stride 128 \
