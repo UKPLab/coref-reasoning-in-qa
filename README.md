@@ -4,14 +4,16 @@ This repository contains the data and code to reproduce the results of our paper
 Please use the following citation:
 
 ```
-@misc{wu2020coreference,
-      title={Coreference Reasoning in Machine Reading Comprehension}, 
-      author={Mingzhu Wu and Nafise Sadat Moosavi and Dan Roth and Iryna Gurevych},
-      year={2020},
-      eprint={2012.15573},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL},
-      url={https://arxiv.org/abs/2012.15573}
+@inproceedings{wu-etal-2021-coreference-reasoning,
+    title = "Coreference Reasoning in Machine Reading Comprehension",
+    author = "Mingzhu Wu and Nafise Sadat Moosavi and Dan Roth and Iryna Gurevych",
+    booktitle = "Proceedings of the Joint Conference of the 59th Annual Meeting of the Association for Computational Linguistics and the 11th International Joint Conference on Natural Language Processing (ACL-IJCNLP 2021) ",
+    month = aug,
+    year = "2021",
+    address = "online",
+    publisher = "Association for Computational Linguistics",
+    url = "https://arxiv.org/abs/2012.15573",
+    pages = "to-appear",
 }
 ```
 
